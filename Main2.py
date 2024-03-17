@@ -7,6 +7,8 @@ import sqlite3
 import base64
 import matplotlib.pyplot as plt
 from io import BytesIO
+import requests
+import configparser
 
 app = Flask(__name__, template_folder='public')
 
@@ -91,4 +93,4 @@ def show_graph():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0" , port=5000,debug=True)
