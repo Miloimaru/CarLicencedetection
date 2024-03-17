@@ -1,0 +1,89 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ObjectDetection-YOLOv8</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    <style>
+        .dropdown {
+      position: absolute;
+      top: 100px;
+      left: 200px;
+    }
+    </style>
+</head>
+<body>
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">ObjectDetection-YOLOv8</a>
+      </div>
+</nav>
+<div class="dropdown">
+    <h1>Select Date</h1>
+    <form action="/show_data" method="post">
+        <label for="day">Day:</label>
+        <select name="day" id="day">
+        </select>
+
+        <label for="month">Month:</label>
+        <select name="month" id="month">
+        </select>
+
+        <label for="year">Year:</label>
+        <select name="year" id="year">
+        </select>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+<script>
+        // JavaScript code to populate the dropdowns
+        function populateDropdown(selectId, start, end) {
+            var select = document.getElementById(selectId);
+
+            for (var i = start; i <= end; i++) {
+                var option = document.createElement("option");
+                option.value = String(i).padStart(2, '0'); // Ensure two-digit format
+                option.text = i;
+                select.add(option);
+            }
+        }
+
+        // Populate day dropdown with values 1 to 31
+        populateDropdown("day", 1, 31);
+
+        // Populate month dropdown with values 1 to 12
+        populateDropdown("month", 1, 12);
+
+        // Populate year dropdown with values 2022 to 2024
+        populateDropdown("year", 2022, 2034);
+    </script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyCL8CkqB7-Pg3e0MK4vU_AK9IzbDHH_Wog",
+    authDomain: "lisence-moterbike.firebaseapp.com",
+    projectId: "lisence-moterbike",
+    storageBucket: "lisence-moterbike.appspot.com",
+    messagingSenderId: "999208581330",
+    appId: "1:999208581330:web:8bebe5b4fc37fa312e950b",
+    measurementId: "G-3TF30P465S"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+</html>

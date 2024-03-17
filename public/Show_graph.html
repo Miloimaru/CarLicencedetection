@@ -1,0 +1,137 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ObjectDetection-YOLOv8</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    <style>
+        .set_txt{
+      position: absolute;
+      top: 100px;
+      left: 200px;
+    }
+      .set_g_button{
+      position: absolute;
+      top: 115px;
+      left: 400px;
+      }
+    .set_button{
+      position: absolute;
+      left: 200px;
+      }
+    table {
+        margin-left: 200px;
+        margin-top: 100px;
+      border-collapse: collapse;
+      width: 80%;
+    }
+    th, td {
+      border: 1px solid #dddddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    td.date-column,
+    td.Car-licence {
+      text-align: center;
+      white-space:pre-line;
+    }
+    td.picture-column img {
+      max-width: 500px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    </style>
+</head>
+<body>
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">ObjectDetection-YOLOv8</a>
+      </div>
+</nav>
+    <h1>Counts</h1>
+    <ul>
+        {% for result in results %}
+            <li>{{ result[0] }}: {{ result[1] }}</li>
+        {% endfor %}
+    </ul>
+ <canvas id="barChart" width="400" height="200"></canvas>
+
+    <script>
+        // Get the results data from Flask passed in as 'results'
+        var results = {{ results | tojson | safe }};
+
+        // Extract the labels (Province names) and data (Count) from the results
+        var labels = results.map(function(item) {
+            return item[0];
+        });
+
+        var data = results.map(function(item) {
+            return item[1];
+        });
+
+        // Get the canvas element
+        var ctx = document.getElementById('barChart').getContext('2d');
+
+        // Create a bar chart using Chart.js
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Car Count',
+                    data: data,
+                    backgroundColor: 'rgba(0, 0, 255, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+<div class="set_button"><button class="back-button" onclick="goBack()">Back</button></div>
+
+<script>
+        function goBack() {
+             window.location.href = "/";
+        }
+ </script>
+</body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyCL8CkqB7-Pg3e0MK4vU_AK9IzbDHH_Wog",
+    authDomain: "lisence-moterbike.firebaseapp.com",
+    projectId: "lisence-moterbike",
+    storageBucket: "lisence-moterbike.appspot.com",
+    messagingSenderId: "999208581330",
+    appId: "1:999208581330:web:8bebe5b4fc37fa312e950b",
+    measurementId: "G-3TF30P465S"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+</html>
